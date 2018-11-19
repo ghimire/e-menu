@@ -1,0 +1,56 @@
+e-menu (on-the-fly HTML5/CSS3 based php menu editor)
+                  author: ghimire
+                 license: GPL v2.0
+								   
+e-menu is a generic menu editor to create menus on-the-fly through
+online editor. Unlike static menus, the e-menus can be added and removed
+directly from the browser. This can be particularly useful if you 
+frequently update menus. The menus are stored in mysql database and are 
+retrieved for display.
+
+Installation:
+-------------
+1) Create mysql database 
+   Example: 
+   > create database 'emenu';
+   > grant all privileges on `emenu`.* to `menu-user`@`localhost` identified
+     by 's3cr37passw0rd';
+2) Import e-menu.sql file
+   $ mysql -p -u menu-user emenu < e-menu.sql
+   
+   You may delete e-menu.sql after importing it.
+   
+2) Modify include/config.php to match the db details above
+   Example: 
+   define('DB_HOST','localhost');
+   define('DB_NAME','emenu');
+   define('DB_USER','menu-user');
+   define('DB_PASS','s3cr37passw0rd');
+3) Have fun.
+
+Notes on Security:
+1) All numeric ID variables are sanitized by in-built function intval.
+2) All strings are sanitized by custom function filter before storing in the
+   database.
+2) All variables are sanitized by custom function filterdisplay before being
+   echoed.
+3) all POST variables are sanitized automatically by custom function
+   process_post_variables in config.php header file.
+
+Enabling/Disabling Editor:
+--------------------------
+Modify this line in header file config.php and change the value from 1 to 0.
+    define('EDITOR_ENABLED', 1);  ===> define('EDITOR_ENABLED', 0); 
+
+When the editor is enabled, an exta editor menu appears on the menu bar.
+To hide this menu even when the editor is enabled, change the value from 1 to 0.
+define('SHOW_EDITOR_MENU', 1); ===> define('SHOW_EDITOR_MENU', 0);
+
+This may prevent users from knowing the menu is in edit mode. The editor can
+still be directly accessed through /menu_list.php page when editor is enabled.
+
+Thanks:
+-------
+The Themes are courtesy of follwing websites.
+  Dark Theme: http://www.red-team-design.com/css3-dropdown-menu
+  Gray Theme: http://www.webdesignerwall.com/demo/css3-dropdown-menu/
